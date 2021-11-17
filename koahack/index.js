@@ -5,7 +5,7 @@ const Bugsnag = require("@bugsnag/js");
 const BugsnagPluginAwsLambda = require("@bugsnag/plugin-aws-lambda");
 
 // bugsnag
-const BUGSNAG_API_KEY = "SET_KEY_HERE";
+const BUGSNAG_API_KEY = ""; // SET BUGSNAG_API_KEY
 Bugsnag.start({
   apiKey: BUGSNAG_API_KEY,
   plugins: [BugsnagPluginAwsLambda],
@@ -37,10 +37,7 @@ router.get("/force-err", (ctx, next) => {
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-// module.exports.handler = serverless(app);
-
-module.exports.handler = bugsnagHandler(serverless(app));
-
+// serverless-http async integration (lets us see exactly what serverless-http returns)
 // const handler = serverless(app);
 // module.exports.handler = async (event, context) => {
 //   console.log("entered lambda handler, calling serverless handler...")
@@ -50,5 +47,5 @@ module.exports.handler = bugsnagHandler(serverless(app));
 //   return result;
 // };
 
-//console.log("starting local server..");
-//app.listen(3000);
+// serverless-http + bugsnag integration
+module.exports.handler = bugsnagHandler(serverless(app));
