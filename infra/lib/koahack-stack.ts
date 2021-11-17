@@ -2,7 +2,7 @@ import * as cdk from '@aws-cdk/core';
 import * as lambda from '@aws-cdk/aws-lambda';
 import * as apigateway from '@aws-cdk/aws-apigatewayv2'
 import * as apigatewayIntegrations from '@aws-cdk/aws-apigatewayv2-integrations'
-import { Duration } from '@aws-cdk/core';
+import { CfnOutput, Duration } from '@aws-cdk/core';
 
 export class KoaHackStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
@@ -19,11 +19,15 @@ export class KoaHackStack extends cdk.Stack {
       }
     })
 
-    new apigateway.HttpApi(this, 'HttpApi', {
+    const httpApi = new apigateway.HttpApi(this, 'HttpApi', {
       apiName: 'koahack',
       defaultIntegration: new apigatewayIntegrations.LambdaProxyIntegration({
         handler: fn,
       }),
+    })
+
+    new CfnOutput(this, 'ApiGatewayEndpoint', {
+      value: httpApi.apiEndpoint,
     })
   }
 }
