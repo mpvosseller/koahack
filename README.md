@@ -27,6 +27,8 @@ Because each exception is caught the `bugsnagHandler` wrapper will never see the
 
 It seems to me that the [instructions for Koa on AWS Lambda](https://docs.bugsnag.com/platforms/javascript/koa/aws-lambda) need to be updated to explain how to install Bugsnag as Koa middleware and as a Koa event handler similar to how the [integration guide for plain Koa](https://docs.bugsnag.com/platforms/javascript/koa) does it.
 
+The primary source code for this application is in `koahack/index.js`
+
 ## Setup
 - Edit `koahack/index.js` and set your `BUGSNAG_API_KEY`
 
