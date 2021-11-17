@@ -16,6 +16,7 @@ const bugsnagHandler = Bugsnag.getPlugin("awsLambda").createHandler();
 const app = new Koa();
 app.on("error", (err) => {
   console.log("handling koa app error event:", err);
+  // Bugsnag.notify(err); // manually notifying on each koa error might suffice  
 });
 
 // koa middleware
