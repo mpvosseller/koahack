@@ -11,7 +11,7 @@ exports.handler = bugsnagHandler(serverless(app))
 
 The problem with this is that the Koa / serverless app (`serverless(app)`) catches each exception and returns an object like this: 
 
-```json
+```javascript
 {
   statusCode: 500,
   headers: {
