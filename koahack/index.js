@@ -1,16 +1,16 @@
 const Koa = require("koa");
 const Router = require("@koa/router");
-const serverless = require('serverless-http');
-const Bugsnag = require('@bugsnag/js')
-const BugsnagPluginAwsLambda = require('@bugsnag/plugin-aws-lambda')
+const serverless = require("serverless-http");
+const Bugsnag = require("@bugsnag/js");
+const BugsnagPluginAwsLambda = require("@bugsnag/plugin-aws-lambda");
 
 // bugsnag
-const BUGSNAG_API_KEY = "SET_KEY_VALUE"
+const BUGSNAG_API_KEY = "SET_KEY_HERE";
 Bugsnag.start({
-  apiKey: BUGSNAG_API_KEY,  
+  apiKey: BUGSNAG_API_KEY,
   plugins: [BugsnagPluginAwsLambda],
-})
-const bugsnagHandler = Bugsnag.getPlugin('awsLambda').createHandler()
+});
+const bugsnagHandler = Bugsnag.getPlugin("awsLambda").createHandler();
 
 // koa app
 const app = new Koa();
@@ -30,15 +30,15 @@ router.get("/", (ctx, next) => {
 router.get("/err", (ctx, next) => {
   throw new Error("this is some error");
 });
-router.get('/force-err', (ctx, next) => {  
-  Bugsnag.notify(new Error('Test koahack error'))
+router.get("/force-err", (ctx, next) => {
+  Bugsnag.notify(new Error("Test koahack error"));
 });
 app.use(router.routes());
 app.use(router.allowedMethods());
 
 // module.exports.handler = serverless(app);
 
-module.exports.handler = bugsnagHandler(serverless(app))
+module.exports.handler = bugsnagHandler(serverless(app));
 
 // const handler = serverless(app);
 // module.exports.handler = async (event, context) => {
