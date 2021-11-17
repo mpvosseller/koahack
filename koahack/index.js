@@ -27,13 +27,14 @@ const router = new Router();
 router.get("/", (ctx, next) => {
   ctx.body = "hello koahack";
 });
-router.get("/err", (ctx, next) => {
+router.get("/test-notify", (ctx, next) => {
+  Bugsnag.notify(new Error("Test koahack error"));
+  ctx.body = "manually reported a test error";
+});
+router.get("/runtime-error", (ctx, next) => {
   throw new Error("this is some error");
 });
-router.get("/force-err", (ctx, next) => {
-  Bugsnag.notify(new Error("Test koahack error"));
-  ctx.body = "force reported a test error";
-});
+
 app.use(router.routes());
 app.use(router.allowedMethods());
 
