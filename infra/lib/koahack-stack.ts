@@ -1,15 +1,24 @@
 import * as cdk from '@aws-cdk/core';
-// import * as sqs from '@aws-cdk/aws-sqs';
+import * as lambda from '@aws-cdk/aws-lambda';
+import * as apigateway from '@aws-cdk/aws-apigatewayv2'
+import * as apigatewayIntegrations from '@aws-cdk/aws-apigatewayv2-integrations'
 
 export class KoaHackStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    // The code that defines your stack goes here
+    const fn = new lambda.Function(this, 'Function', {      
+      runtime: lambda.Runtime.NODEJS_14_X,
+      code: lambda.Code.fromAsset('../koahack/build/dist.zip'),
+      handler: 'index.handler',
+      memorySize: 1024,           
+    })
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'InfraQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    new apigateway.HttpApi(this, 'HttpApi', {
+      apiName: 'koahack',
+      defaultIntegration: new apigatewayIntegrations.LambdaProxyIntegration({
+        handler: fn,
+      }),
+    })
   }
 }

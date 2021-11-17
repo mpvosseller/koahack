@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "mkdir -p build; cp -r node_modules build; cp index.js build; cd build; zip -r dist.zip .",
+    "clean": "rm -rf build"
   },
   "author": "",
   "license": "ISC",

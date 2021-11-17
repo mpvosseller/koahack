@@ -5,7 +5,7 @@ const serverless = require('serverless-http');
 // router
 const router = new Router();
 router.get("/", (ctx, next) => {
-  ctx.body = "Hello World";
+  ctx.body = "hello koahack";
 });
 router.get("/err", (ctx, next) => {
   throw new Error("this is some error");
@@ -24,7 +24,15 @@ app.use((ctx, next) => {
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-module.exports.handler = serverless(app);
+//module.exports.handler = serverless(app);
+
+const handler = serverless(app);
+module.exports.handler = async (event, context) => {
+  console.log("entered lambda handler, calling serverless...")
+  const result = await handler(event, context);
+  console.log("returned from serverless, returning result.")
+  return result;
+};
 
 //console.log("starting server");
 //app.listen(3000);
