@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@bugsnag/js": "^7.14.0",
     "@bugsnag/plugin-aws-lambda": "^7.14.0",
     "@koa/router": "^10.1.1",
     "koa": "^2.13.4",

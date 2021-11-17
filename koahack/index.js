@@ -32,6 +32,7 @@ router.get("/err", (ctx, next) => {
 });
 router.get("/force-err", (ctx, next) => {
   Bugsnag.notify(new Error("Test koahack error"));
+  ctx.body = "force reported a test error";
 });
 app.use(router.routes());
 app.use(router.allowedMethods());
