@@ -28,9 +28,10 @@ app.use(router.allowedMethods());
 
 const handler = serverless(app);
 module.exports.handler = async (event, context) => {
-  console.log("entered lambda handler, calling serverless...")
+  console.log("entered lambda handler, calling serverless handler...")
   const result = await handler(event, context);
-  console.log("returned from serverless, returning result.")
+  console.log("returned from serverless handler, returning result:")
+  console.log(result)
   return result;
 };
 

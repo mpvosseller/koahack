@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "mkdir -p build; cp -r node_modules build; cp index.js build; cd build; zip -r dist.zip .",
-    "clean": "rm -rf build"
+    "clean": "rm -rf build",
+    "deploy": "npm run clean; npm run build; cd ../infra; npm run cdk deploy"
   },
   "author": "",
   "license": "ISC",
